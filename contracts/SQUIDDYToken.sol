@@ -3,41 +3,18 @@ pragma solidity 0.8.0;
 import "./token/BEP20/BEP20.sol";
 import "./math/SafeMath.sol";
 
-import "./WAGToken.sol";
-
-// SyrupBar with Governance.
-contract WAGStake is BEP20('WAGStake Token', 'WAGStake', 18) {
+// SquiddyToken with Governance.
+contract SQUIDDYToken is BEP20('SquiddySwap Token', 'SQUIDDX', 18) {
     using SafeMath for uint256;
-    
     /// @notice Creates `_amount` token to `_to`. Must only be called by the owner (WAGFarm).
+    
+    function burn(uint256 _amount) public {
+        _burn(msg.sender, _amount);
+    }
+    
     function mint(address _to, uint256 _amount) public onlyOwner {
         _mint(_to, _amount);
         _moveDelegates(address(0), _delegates[_to], _amount);
-    }
-
-    function burn(address _from ,uint256 _amount) public onlyOwner {
-        _burn(_from, _amount);
-        _moveDelegates(_delegates[_from], address(0), _amount);
-    }
-
-    // The CAKE TOKEN!
-    WAGToken public cake;
-
-
-    constructor(
-        WAGToken _cake
-    ) public {
-        cake = _cake;
-    }
-
-    // Safe cake transfer function, just in case if rounding error causes pool to not have enough CAKEs.
-    function safeCakeTransfer(address _to, uint256 _amount) public onlyOwner {
-        uint256 cakeBal = cake.balanceOf(address(this));
-        if (_amount > cakeBal) {
-            cake.transfer(_to, cakeBal);
-        } else {
-            cake.transfer(_to, _amount);
-        }
     }
 
     // Copied and modified from YAM code:

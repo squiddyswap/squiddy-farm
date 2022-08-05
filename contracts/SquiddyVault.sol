@@ -10,7 +10,7 @@ import './utils/Pausable.sol';
 
 // File: contracts/CakeVault.sol
 
-contract WagyuVault is Ownable, Pausable {
+contract SquiddyVault is Ownable, Pausable {
     using SafeBEP20 for IBEP20;
     using SafeMath for uint256;
 

@@ -5,7 +5,7 @@ import './token/BEP20/IBEP20.sol';
 import './token/BEP20/SafeBEP20.sol';
 import './utils/ReentrancyGuard.sol';
 
-contract WAGStakingPoolInitializable is Ownable, ReentrancyGuard {
+contract SQUIDDYStakingPoolInitializable is Ownable, ReentrancyGuard {
     using SafeMath for uint256;
     using SafeBEP20 for IBEP20;
 
@@ -21,10 +21,10 @@ contract WAGStakingPoolInitializable is Ownable, ReentrancyGuard {
     // Accrued token per share
     uint256 public accTokenPerShare;
 
-    // The block number when WAGYU mining ends.
+    // The block number when SQUIDDY mining ends.
     uint256 public bonusEndTimestamp;
 
-    // The block number when WAGYU mining starts.
+    // The block number when SQUIDDY mining starts.
     uint256 public startTimestamp;
 
     // The block number of the last pool update
@@ -33,7 +33,7 @@ contract WAGStakingPoolInitializable is Ownable, ReentrancyGuard {
     // The pool limit (0 if none)
     uint256 public poolLimitPerUser;
 
-    // WAGYU tokens created per block.
+    // SQUIDDY tokens created per block.
     uint256 public rewardPerSecond;
 
     // The precision factor
@@ -277,9 +277,9 @@ contract WAGStakingPoolInitializable is Ownable, ReentrancyGuard {
         uint256 stakedTokenSupply = stakedToken.balanceOf(address(this));
         if (block.timestamp > lastRewardTimestamp && stakedTokenSupply != 0) {
             uint256 multiplier = _getMultiplier(lastRewardTimestamp, block.timestamp);
-            uint256 wagyuReward = multiplier.mul(rewardPerSecond);
+            uint256 squiddyReward = multiplier.mul(rewardPerSecond);
             uint256 adjustedTokenPerShare =
-            accTokenPerShare.add(wagyuReward.mul(PRECISION_FACTOR).div(stakedTokenSupply));
+            accTokenPerShare.add(squiddyReward.mul(PRECISION_FACTOR).div(stakedTokenSupply));
             return user.amount.mul(adjustedTokenPerShare).div(PRECISION_FACTOR).sub(user.rewardDebt);
         } else {
             return user.amount.mul(accTokenPerShare).div(PRECISION_FACTOR).sub(user.rewardDebt);
@@ -302,8 +302,8 @@ contract WAGStakingPoolInitializable is Ownable, ReentrancyGuard {
         }
 
         uint256 multiplier = _getMultiplier(lastRewardTimestamp, block.timestamp);
-        uint256 wagyuReward = multiplier.mul(rewardPerSecond);
-        accTokenPerShare = accTokenPerShare.add(wagyuReward.mul(PRECISION_FACTOR).div(stakedTokenSupply));
+        uint256 squiddyReward = multiplier.mul(rewardPerSecond);
+        accTokenPerShare = accTokenPerShare.add(squiddyReward.mul(PRECISION_FACTOR).div(stakedTokenSupply));
         lastRewardTimestamp = block.timestamp;
     }
 

@@ -5,8 +5,8 @@ import './token/BEP20/IBEP20.sol';
 import './token/BEP20/SafeBEP20.sol';
 import './access/Ownable.sol';
 
-import "./WAGToken.sol";
-import "./WAGStake.sol";
+import "./SQUIDDYToken.sol";
+import "./SQUIDDYStake.sol";
 
 // import "@nomiclabs/buidler/console.sol";
 
@@ -23,14 +23,14 @@ interface IMigratorChef {
     function migrate(IBEP20 token) external returns (IBEP20);
 }
 
-// WAGFarm is the master of WAG. He can make WAG and he is a fair guy.
+// SQUIDDYFarm is the master of SQUIDDY. He can make SQUIDDY and he is a fair guy.
 //
 // Note that it's ownable and the owner wields tremendous power. The ownership
 // will be transferred to a governance smart contract once CAKE is sufficiently
 // distributed and the community can show to govern itself.
 //
 // Have fun reading it. Hopefully it's bug-free. God bless.
-contract WAGFarm is Ownable {
+contract SQUIDDYFarm is Ownable {
     using SafeMath for uint256;
     using SafeBEP20 for IBEP20;
 
@@ -60,9 +60,9 @@ contract WAGFarm is Ownable {
     }
 
     // The CAKE TOKEN!
-    WAGToken public cake;
+    SQUIDDYToken public cake;
     // The SYRUP TOKEN!
-    WAGStake public syrup;
+    SQUIDDYStake public syrup;
     // Dev address.
     address public devaddr;
     // CAKE tokens created per block.
@@ -86,8 +86,8 @@ contract WAGFarm is Ownable {
     event EmergencyWithdraw(address indexed user, uint256 indexed pid, uint256 amount);
 
     constructor(
-        WAGToken _cake,
-        WAGStake _syrup,
+        SQUIDDYToken _cake,
+        SQUIDDYStake _syrup,
         address _devaddr,
         uint256 _cakePerSecond,
         uint256 _startTimestamp
@@ -225,10 +225,10 @@ contract WAGFarm is Ownable {
         pool.lastRewardTimestamp = block.timestamp;
     }
 
-    // Deposit LP tokens to WAGFarm for WAG allocation.
+    // Deposit LP tokens to SQUIDDYFarm for SQUIDDY allocation.
     function deposit(uint256 _pid, uint256 _amount) public {
 
-        require (_pid != 0, 'deposit WAG by staking');
+        require (_pid != 0, 'deposit SQUIDDY by staking');
 
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
@@ -247,7 +247,7 @@ contract WAGFarm is Ownable {
         emit Deposit(msg.sender, _pid, _amount);
     }
 
-    // Withdraw LP tokens from WAGFarm.
+    // Withdraw LP tokens from SQUIDDYFarm.
     function withdraw(uint256 _pid, uint256 _amount) public {
 
         require (_pid != 0, 'withdraw CAKE by unstaking');
@@ -268,7 +268,7 @@ contract WAGFarm is Ownable {
         emit Withdraw(msg.sender, _pid, _amount);
     }
 
-    // Stake WAG tokens to WAGFarm
+    // Stake SQUIDDY tokens to SQUIDDYFarm
     function enterStaking(uint256 _amount) public {
         PoolInfo storage pool = poolInfo[0];
         UserInfo storage user = userInfo[0][msg.sender];
@@ -289,7 +289,7 @@ contract WAGFarm is Ownable {
         emit Deposit(msg.sender, 0, _amount);
     }
 
-    // Withdraw WAG tokens from STAKING.
+    // Withdraw SQUIDDY tokens from STAKING.
     function leaveStaking(uint256 _amount) public {
         PoolInfo storage pool = poolInfo[0];
         UserInfo storage user = userInfo[0][msg.sender];

@@ -8,7 +8,7 @@ import "./interfaces/IMasterChefV2.sol";
 import "./interfaces/IBoostContract.sol";
 import "./interfaces/IVCake.sol";
 
-contract WagPool is Ownable, Pausable {
+contract SquiddyPool is Ownable, Pausable {
     using SafeERC20 for IERC20;
 
     struct UserInfo {

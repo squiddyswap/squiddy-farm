@@ -15,7 +15,7 @@ import "./interfaces/IMasterChef.sol";
 /// The idea for this MasterChef V2 (MCV2) contract is therefore to be the owner of a dummy token
 /// that is deposited into the MasterChef V1 (MCV1) contract.
 /// The allocation point for this pool on MCV1 is the total allocation point for all pools that receive incentives.
-contract WAGFarmV2 is Ownable, ReentrancyGuard {
+contract SQUIDDYFarmV2 is Ownable, ReentrancyGuard {
     using SafeMath for uint256;
     using SafeBEP20 for IBEP20;
 
